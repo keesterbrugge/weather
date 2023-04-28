@@ -12,7 +12,7 @@
                                            :tomorrow {:label "Tomorrow"
                                                       :value nil}}}))
 
-(def api-key "my key here")
+(def api-key "f5ecb5faef74cda72839f9664ce85e0c")
 
 (defn handle-response [resp]                               ;; <2>
   (let [today (get-in resp ["list" 0 "main" "temp"])
@@ -39,6 +39,9 @@
     (:value temp)]
    [:h2 (:label temp)]])
 
+(defn go-button []
+  [:button {:on-click get-forecast!} "Go"])
+
 (defn postal-code []
   [:div {:class "postal-code"}
    [:h3 "Enter your postal code"]
@@ -46,7 +49,7 @@
             :placeholder "Postal Code"
             :value (:postal-code @app-state)
             :on-change #(swap! app-state assoc :postal-code (-> % .-target .-value))}]
-   [:button {:on-click get-forecast!} "Go"]])
+   [go-button]])
 
 (defn app []
   [:div {:class "app"}
